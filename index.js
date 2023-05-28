@@ -1,20 +1,17 @@
 console.log("Esta funcionando");
+console.log("http://localhost:8000");
 
-// http://localhost:1337/
-const http = require("http"); // Loads the http module
+const express = require("express");
+const path = require("path");
 
-http
-  .createServer((request, response) => {
-    // 1. Tell the browser everything is OK (Status code 200), and the data is in plain text
-    response.writeHead(200, {
-      "Content-Type": "text/plain",
-    });
+const app = express();
 
-    // 2. Write the announced text to the body of the page
-    response.write("Hello, World!\n Ta funcionando node portable\n");
-    response.write("este ip é no localhost:1337");
+app.get("/", (req, res) => {
+  const filePath = path.join(__dirname, "dist", "index.html");
+  res.sendFile(filePath);
+});
 
-    // 3. Tell the server that all of the response headers and body have been sent
-    response.end();
-  })
-  .listen(1337); // 4. Tells the server what port to be on
+app.listen(8000, () => {
+  console.log("Servidor ouvindo na porta 8000");
+});
+
