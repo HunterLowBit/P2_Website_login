@@ -1,24 +1,22 @@
-console.log("Esta funcionando");
-console.log("http://localhost:8000");
-
 const express = require("express");
-const path = require("path");
-
 const app = express();
-
+const { MessagingResponse } = require("twilio").twiml;
 app.use(express.static("public"));
 
+
 app.get("/", (req, res) => {
-  const filePath = path.join(__dirname, "public", "index.html");
-  res.sendFile(filePath);
+  res.sendFile(__dirname + "/public/index.html");
+});
+app.post("/sms", (req, res) => {
+  const twiml = new MessagingResponse();
+
+  twiml.message("The Robots are coming! Head for the hills!");
+
+  res.type("text/xml").send(twiml.toString());
 });
 
-app.get("/css/styles.css", (req, res) => {
-  const filePath = path.join(__dirname, "public", "css", "styles.css");
-  res.type("text/css"); // Define o tipo MIME como "text/css"
-  res.sendFile(filePath);
+
+app.listen(3000, () => {
+  console.log("Servidor iniciado na porta 3000 (HTTP)\nhttp://localhost:3000");
 });
 
-app.listen(8000, () => {
-  console.log("Servidor ouvindo na porta 8000");
-});
