@@ -12,15 +12,15 @@ app.use(bodyParser.json());
 const secretKey = "seu_segredo_aqui";
 
 // Criação e conexão com o banco de dados SQLite
-const db = new sqlite3.Database(":memory:"); // ou substitua por um caminho para um arquivo
+const db = new sqlite3.Database("/data/database.db"); // ou substitua por um caminho para um arquivo
 
 // Cria tabela de usuários
 db.serialize(() => {
   db.run(
-    "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)"
+    "CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY, email TEXT, senha TEXT)"
   );
   db.run(
-    "INSERT OR IGNORE INTO users (username, password) VALUES ('admin', '123456')"
+    "INSERT OR IGNORE INTO users (email, senha) VALUES ('admin', '123456')"
   );
 });
 
