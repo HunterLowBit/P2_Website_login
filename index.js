@@ -2,6 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
+const bcrypt = require("bcryptjs");
+
 
 const app = express();
 app.use(express.static("public"));
